@@ -9,7 +9,9 @@
 #import "TiGradient.h"
 #import "LayoutConstraint.h"
 
+#ifdef TI_USE_AUTOLAYOUT
 #import "TiLayoutView.h"
+#endif
 
 //By declaring a scrollView protocol, TiUITextWidget can access 
 @class TiUIView;

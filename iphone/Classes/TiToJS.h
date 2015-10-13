@@ -117,6 +117,7 @@
 #define kTiPropertyAttributeDontEnum kJSPropertyAttributeDontEnum
 #define kTiPropertyAttributeNone kJSPropertyAttributeNone
 #define kTiPropertyAttributeReadOnly kJSPropertyAttributeReadOnly
+#define TiObjectGetPrototype JSObjectGetPrototype
 
 #else
 #import "JavaScriptCore/TiCore.h"
