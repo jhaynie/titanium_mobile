@@ -113,6 +113,15 @@ NSObject * TiBindingTiValueToNSObject(TiContextRef jsContext, TiValueRef objRef)
 			if ([privateObject isKindOfClass:[KrollObject class]]) {
 				return [privateObject target];
 			}
+			// this is a special hyperloop wrapped object, unwrap it
+			if (privateObject == nil) {
+				TiStringRef jsString = TiStringCreateWithUTF8CString("$native");
+				TiValueRef jsValue = TiObjectGetProperty(jsContext, obj, jsString, NULL);
+				TiStringRelease(jsString);
+				if (TiValueIsObject(jsContext, jsValue)) {
+					privateObject = (id)TiObjectGetPrivate(TiValueToObject(jsContext, jsValue, NULL));
+				}
+			}
 			if ([privateObject isKindOfClass:[TiProxy class]]) {
 				return privateObject;
 			}
