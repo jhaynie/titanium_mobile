@@ -547,7 +547,7 @@ CFMutableSetRef	krollBridgeRegistry = nil;
 	// Start Hyperloop engine if present
 	Class cls = NSClassFromString(@"Hyperloop");
 	if (cls) {
-		[cls performSelector:@selector(willStartNewContext:) withObject:kroll];
+		[cls performSelector:@selector(willStartNewContext:bridge:) withObject:kroll withObject:self];
 	}
 	[self retain]; // Hold onto ourselves as long as the context needs us
 }
@@ -616,7 +616,7 @@ CFMutableSetRef	krollBridgeRegistry = nil;
 
 	Class cls = NSClassFromString(@"Hyperloop");
 	if (cls) {
-		[cls performSelector:@selector(didStartNewContext:) withObject:kroll];
+		[cls performSelector:@selector(didStartNewContext:bridge:) withObject:kroll withObject:self];
 	}
 
     [pool release];
@@ -627,7 +627,7 @@ CFMutableSetRef	krollBridgeRegistry = nil;
 	// Stop Hyperloop engine if present
 	Class cls = NSClassFromString(@"Hyperloop");
 	if (cls) {
-		[cls performSelector:@selector(willStopNewContext:) withObject:kroll];
+		[cls performSelector:@selector(willStopNewContext:bridge:) withObject:kroll withObject:self];
 	}
 
 	if (shutdown==NO)
@@ -659,7 +659,7 @@ CFMutableSetRef	krollBridgeRegistry = nil;
 	RELEASE_TO_NIL(preload);
 	Class cls = NSClassFromString(@"Hyperloop");
 	if (cls) {
-		[cls performSelector:@selector(didStopNewContext:) withObject:kroll];
+		[cls performSelector:@selector(didStopNewContext:bridge:) withObject:kroll withObject:self];
 	}
 	[self autorelease]; // Safe to release now that the context is done
 }

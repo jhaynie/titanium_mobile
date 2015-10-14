@@ -113,6 +113,9 @@ NSObject * TiBindingTiValueToNSObject(TiContextRef jsContext, TiValueRef objRef)
 			if ([privateObject isKindOfClass:[KrollObject class]]) {
 				return [privateObject target];
 			}
+			if ([privateObject isKindOfClass:[TiProxy class]]) {
+				return privateObject;
+			}
 			if (TiValueIsArray(jsContext,obj)) {
 				TiValueRef length = TiObjectGetProperty(jsContext, obj, kTiStringLength, NULL);
 				double len = TiValueToNumber(jsContext, length, NULL);
