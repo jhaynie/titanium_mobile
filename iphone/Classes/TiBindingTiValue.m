@@ -131,10 +131,10 @@ NSObject * TiBindingTiValueToNSObject(TiContextRef jsContext, TiValueRef objRef)
 				TiStringRelease(jsString);
 				if (TiValueIsObject(jsContext, jsValue)) {
 					privateObject = (id)TiObjectGetPrivate(TiValueToObject(jsContext, jsValue, NULL));
+                    if (privateObject != nil){
+                        return privateObject;
+                    }
 				}
-			}
-			if ([privateObject isKindOfClass:[TiProxy class]]) {
-				return privateObject;
 			}
 			if (TiValueIsArray(jsContext,obj)) {
 				TiValueRef length = TiObjectGetProperty(jsContext, obj, kTiStringLength, NULL);
