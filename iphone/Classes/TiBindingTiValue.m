@@ -52,6 +52,17 @@ NSDictionary * TiBindingTiValueToNSDictionary(TiContextRef jsContext, TiValueRef
 		[jsonkey release];
 	}
 	
+	// if this looks like a JS Error object, get the message
+	if ([dict objectForKey:@"line"] != nil && [dict objectForKey:@"column"] != nil) {
+		TiStringRef prop = TiStringCreateWithUTF8CString("message");
+		TiValueRef val = TiObjectGetProperty(jsContext, obj, prop, NULL);
+		id value = TiBindingTiValueToNSObject(jsContext, val);
+		if (value && ![value isEqual:[NSNull null]]) {
+			[dict setObject:value forKey:@"message"];
+		}
+		TiStringRelease(prop);
+	}
+
 	TiPropertyNameArrayRelease(props);
 	
 	return [dict autorelease];
